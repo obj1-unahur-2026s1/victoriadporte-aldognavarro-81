@@ -25,3 +25,10 @@ object hockey {
         return 500
     }
 }
+
+object stickHockey {
+    // El mensaje 'costo' debe recibir un 'atleta' para ser polimórfico
+    method costo(atleta) {
+        return 1200 // Un valor fijo que inventamos para el palo de hockey
+    }
+}

@@ -1,21 +1,25 @@
 import victoria.*
 import elementos.*
 import disciplinas.*
-import comiteOlimpico.*
+import comiteOlimpico.* 
 
-describe "Tests de Victoria D. Porte" {
+describe "Tests integrales de Victoria D. Porte" {
 
-	test "Victoria estilo Pareto" { 
-		victoria.edad(25) 
+	test "Caso Pareto con equals y that" { 
+		victoria.edad(25)
 		victoria.altura(150)
 		victoria.disciplina(judo)
 		victoria.elemento(trajeDeJudo)
 		victoria.cantidadDeEntrenadores(4)
 		
+		// 1. Verificamos el resultado exacto
 		assert.equals(9980, victoria.presupuestoTotal())
+		
+		// 2. Verificamos que sea un presupuesto alto (mayor a 9000)
+		assert.that(victoria.presupuestoTotal() > 9000)
 	}
 
-	test "Victoria estilo Delpo" {
+	test "Caso Delpo con equals y notThat" {
 		victoria.altura(210)
 		victoria.edad(20)
 		victoria.disciplina(tenis)
@@ -23,14 +27,28 @@ describe "Tests de Victoria D. Porte" {
 		victoria.cantidadDeEntrenadores(2)
 		
 		assert.equals(3215, victoria.presupuestoTotal())
+		
+    // verificamos que el presupuesto NO es excesivo (no debería superar los 4000)
+		assert.notThat(victoria.presupuestoTotal() > 4000)
 	}
 
-	test "Victoria practica Judo con una raqueta" {
+	test "Cambio en el Comité Olímpico afecta el presupuesto" {
 		victoria.edad(20)
-		victoria.disciplina(judo)
-		victoria.elemento(raqueta)
-		victoria.cantidadDeEntrenadores(0)
+		victoria.disciplina(hockey)
+		victoria.elemento(stickHockey)
+		victoria.cantidadDeEntrenadores(1)
 		
-		assert.equals(2480, victoria.presupuestoTotal())
+		// Valor inicial: (1 * 500) + 1200 + 500 = 2200
+		assert.equals(2200, victoria.presupuestoTotal())
+		
+		// Cambiamos el valor en el objeto Comité
+		comiteOlimpico.valorPorEntrenador(1000)
+		
+		// Nuevo valor: (1 * 1000) + 1200 + 500 = 2700
+		assert.equals(2700, victoria.presupuestoTotal())
+		
+		// Verificamos que ya NO es el valor anterior
+		assert.notThat(victoria.presupuestoTotal() == 2200)
 	}
 }
+//equals, that, notthat
