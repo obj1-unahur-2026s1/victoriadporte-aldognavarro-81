@@ -1,9 +1,36 @@
-import example.pepita
+import victoria.*
+import elementos.*
+import disciplinas.*
+import comiteOlimpico.*
 
-describe "group of tests for pepita" {
+describe "Tests de Victoria D. Porte" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
-  }
+	test "Victoria estilo Pareto" { 
+		victoria.edad(25) 
+		victoria.altura(150)
+		victoria.disciplina(judo)
+		victoria.elemento(trajeDeJudo)
+		victoria.cantidadDeEntrenadores(4)
+		
+		assert.equals(9980, victoria.presupuestoTotal())
+	}
 
+	test "Victoria estilo Delpo" {
+		victoria.altura(210)
+		victoria.edad(20)
+		victoria.disciplina(tenis)
+		victoria.elemento(raqueta)
+		victoria.cantidadDeEntrenadores(2)
+		
+		assert.equals(3215, victoria.presupuestoTotal())
+	}
+
+	test "Victoria practica Judo con una raqueta" {
+		victoria.edad(20)
+		victoria.disciplina(judo)
+		victoria.elemento(raqueta)
+		victoria.cantidadDeEntrenadores(0)
+		
+		assert.equals(2480, victoria.presupuestoTotal())
+	}
 }
